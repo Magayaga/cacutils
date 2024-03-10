@@ -1,13 +1,13 @@
 import Foundation
 
 // Function to implement the 'ls' command
-func lsCommand(arguments: [String]) {
+func ls_command(arguments: [String]) {
     // Check if --help or --version option is provided
     if arguments.contains("--help") {
-        printUsage()
+        ls_print_usage()
         return
     } else if arguments.contains("--version") {
-        printVersion()
+        ls_print_version()
         return
     }
     
@@ -68,7 +68,7 @@ func lsCommand(arguments: [String]) {
 }
 
 // Function to convert file size to human-readable format
-func fileSizeToHumanReadable(_ size: Int) -> String {
+func file_size_to_human_readable(_ size: Int) -> String {
     let units = ["B", "KB", "MB", "GB", "TB"]
     var fileSize = Double(size)
     var unitIndex = 0
@@ -82,7 +82,7 @@ func fileSizeToHumanReadable(_ size: Int) -> String {
 }
 
 // Function to print usage instructions
-func printUsage() {
+func ls_print_usage() {
     print("Usage: ls [OPTION]... [FILE]...")
     print("List information about the FILEs (the current directory by default).")
     print("\nOptions:")
@@ -94,8 +94,8 @@ func printUsage() {
 }
 
 // Function to print version information
-func printVersion() {
+func ls_print_version() {
     print("ls (cacutils) v1.0")
     print("There is NO WARRANTY, to the extent permitted by law.")
-    print("\nWritten by Cyril John Magayaga.")
+    print("Written by Cyril John Magayaga.")
 }

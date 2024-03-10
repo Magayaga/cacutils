@@ -1,39 +1,13 @@
 import Foundation
 
-// Function to print usage instructions
-func printUsage() {
-    print("Usage: cat [OPTION]... [FILE]...")
-    print("Concatenate FILE(s) to standard output.")
-    print("\nOptions:")
-    print("  --help            display this help and exit")
-    print("  -A, --show-all    equivalent to -vET")
-    print("  -b, --number-nonblank")
-    print("                    number nonempty output lines, overrides -n")
-    print("  -e                equivalent to -vE")
-    print("  -E, --show-ends   display $ at end of each line")
-    print("  -n, --number      number all output lines")
-    print("  -s, --squeeze-blank")
-    print("                    suppress repeated empty output lines")
-    print("  -t                equivalent to -vT")
-    print("  -T, --show-tabs   display TAB characters as ^I")
-    print("  --version         output version information and exit")
-}
-
-// Function to print version information
-func printVersion() {
-    print("cat (cacutils) v1.0")
-    print("There is NO WARRANTY, to the extent permitted by law.")
-    print("\nWritten by Cyril John Magayaga.")
-}
-
 // Function to implement the 'cat' command
-func catCommand(arguments: [String]) {
+func cat_command(arguments: [String]) {
     // Check if --help or --version option is provided
     if arguments.contains("--help") {
-        printUsage()
+        cat_print_usage()
         return
     } else if arguments.contains("--version") {
-        printVersion()
+        cat_print_version()
         return
     }
     
@@ -92,4 +66,30 @@ func catCommand(arguments: [String]) {
     } catch {
         print("Error reading file: \(fileName)")
     }
+}
+
+// Function to print usage instructions
+func cat_print_usage() {
+    print("Usage: cat [OPTION]... [FILE]...")
+    print("Concatenate FILE(s) to standard output.")
+    print("\nOptions:")
+    print("  --help            display this help and exit")
+    print("  -A, --show-all    equivalent to -vET")
+    print("  -b, --number-nonblank")
+    print("                    number nonempty output lines, overrides -n")
+    print("  -e                equivalent to -vE")
+    print("  -E, --show-ends   display $ at end of each line")
+    print("  -n, --number      number all output lines")
+    print("  -s, --squeeze-blank")
+    print("                    suppress repeated empty output lines")
+    print("  -t                equivalent to -vT")
+    print("  -T, --show-tabs   display TAB characters as ^I")
+    print("  --version         output version information and exit")
+}
+
+// Function to print version information
+func cat_print_version() {
+    print("cat (cacutils) v1.0")
+    print("There is NO WARRANTY, to the extent permitted by law.")
+    print("Written by Cyril John Magayaga.")
 }

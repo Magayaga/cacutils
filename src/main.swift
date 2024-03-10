@@ -41,7 +41,7 @@ struct Shell {
 }
 
 // Example commands
-func helpCommand(arguments: [String]) {
+func help_command(arguments: [String]) {
     print("Available commands:")
     print("help - Display available commands")
     print("hello - Print Hello World!")
@@ -49,7 +49,7 @@ func helpCommand(arguments: [String]) {
     print("ls [OPTION]... [FILE]... - List directory contents")
 }
 
-func helloCommand(arguments: [String]) {
+func hello_command(arguments: [String]) {
     print("Hello, World!")
 }
 
@@ -57,14 +57,14 @@ func helloCommand(arguments: [String]) {
 var shell = Shell(commands: [:])
 
 // Register commands
-shell.register(command: Command(name: "help", handler: helpCommand))
-shell.register(command: Command(name: "hello", handler: helloCommand))
+shell.register(command: Command(name: "help", handler: help_command))
+shell.register(command: Command(name: "hello", handler: hello_command))
 
 // Register the cat command
-shell.register(command: Command(name: "cat", handler: catCommand))
+shell.register(command: Command(name: "cat", handler: cat_command))
 
 // Register the ls command
-shell.register(command: Command(name: "ls", handler: lsCommand))
+shell.register(command: Command(name: "ls", handler: ls_command))
 
 // Start the shell
 shell.start()
