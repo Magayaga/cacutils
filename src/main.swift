@@ -24,11 +24,22 @@ struct Shell {
         }
     }
     
+    // Function to get the current directory path
+    func getCurrentDirectory() -> String {
+        return FileManager.default.currentDirectoryPath
+    }
+    
     // Function to start the shell
-    func start() {
+    mutating func start() {
+        let osName = colorize(ProcessInfo.processInfo.operatingSystemVersionString, color: ANSIColors.green)
+        let username = colorize(NSUserName(), color: ANSIColors.green)
+        
         print("Welcome to Swift Shell!")
         while true {
-            print("Enter a command:")
+            let directoryPath = colorize(getCurrentDirectory(), color: ANSIColors.blue)
+            let prompt = "\(username)@\(osName):\(directoryPath) $ "
+            print(prompt, terminator: "")
+            
             if let input = readLine() {
                 let components = input.split(separator: " ")
                 if let commandName = components.first {
