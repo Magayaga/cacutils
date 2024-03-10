@@ -51,7 +51,7 @@ func ls_command(arguments: [String]) {
                 
                 var details = "\(item)"
                 if showHumanReadableSize {
-                    details += " - \(fileSizeToHumanReadable(fileSize))"
+                    details += " - \(file_size_to_human_readable(fileSize))"
                 } else {
                     details += " - \(fileSize) bytes"
                 }
