@@ -1,6 +1,6 @@
 # cacutils
 
-**Computational Automation and Core Utilities** or **cacutils** is a package of GNU software containing implementations for many of the basic tools, such as `concat`, `ls`, `sleep`, `time`, and `rm`, which are used on **Windows**, **Linux**, and **macOS** operating systems.
+**Computational Automation and Core Utilities** or **cacutils** is a package of GNU software containing implementations for many of the basic tools, such as `cat`, `ls`, `sleep`, `time`, and `rm`, which are used on **Windows**, **Linux**, and **macOS** operating systems.
 
 | Operating systems |             Written in             |
 |:-----------------:|:----------------------------------:|
