@@ -9,4 +9,4 @@
 
 ## Copyright
 
-Copyright (c) 2024 Cyril John Magayaga
+Copyright (c) 2024 Cyril John Magayaga. Licensed under the [Apache v2.0](LICENSE) license.
