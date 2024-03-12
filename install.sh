@@ -12,7 +12,7 @@ if [ ! -d "$SRC_DIR" ]; then
 fi
 
 # Compile Swift source files
-swiftc "$SRC_DIR"/main.swift "$SRC_DIR"/ls.swift "$SRC_DIR"/cat.swift "$SRC_DIR"/color.swift -o "$EXECUTABLE"
+swiftc "$SRC_DIR"/main.swift "$SRC_DIR"/ls.swift "$SRC_DIR"/cat.swift "$SRC_DIR"/color.swift "$SRC_DIR"/cd.swift "$SRC_DIR"/sleep.swift -o "$EXECUTABLE"
 
 # Check if compilation was successful
 if [ $? -eq 0 ]; then
