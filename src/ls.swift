@@ -11,54 +11,54 @@ func ls_command(arguments: [String]) {
         return
     }
     
-    // Parse options
-    var showHiddenFiles = false
-    var showDetails = false
-    var showHumanReadableSize = false
+    // Get the directory path (if provided) or use the current directory
+    let directoryPath = arguments.first ?? FileManager.default.currentDirectoryPath
     
-    for option in arguments {
-        switch option {
-        case "-a":
-            showHiddenFiles = true
-        case "-l":
-            showDetails = true
-        case "-h":
-            showHumanReadableSize = true
-        default:
-            break
+    // Set default block size
+    var blockSize: Int = 1024
+    
+    // Determine block size if provided in arguments
+    if let blockSizeArg = arguments.first(where: { $0.hasPrefix("--block-size=") }) {
+        if let sizeString = blockSizeArg.split(separator: "=").last, let size = Int(sizeString) {
+            blockSize = size
         }
     }
-    
-    // Get the directory path (if provided) or use the current directory
-    let directoryPath = arguments.last ?? FileManager.default.currentDirectoryPath
     
     do {
         let contents = try FileManager.default.contentsOfDirectory(atPath: directoryPath)
         
-        for item in contents {
-            // Skip hidden files if -a option is not provided
-            if !showHiddenFiles && item.hasPrefix(".") {
-                continue
-            }
-            
-            // Get detailed information if -l option is provided
-            if showDetails {
-                let itemPath = (directoryPath as NSString).appendingPathComponent(item)
+        // Apply options
+        if arguments.contains("-l") || arguments.contains("-la") {
+            for item in contents {
+                let itemPath = "\(directoryPath)/\(item)"
                 let attributes = try FileManager.default.attributesOfItem(atPath: itemPath)
-                
-                let fileSize = attributes[.size] as? Int ?? 0
-                let fileModificationDate = attributes[.modificationDate] as? Date ?? Date()
-                
-                var details = "\(item)"
-                if showHumanReadableSize {
-                    details += " - \(file_size_to_human_readable(fileSize))"
-                } else {
-                    details += " - \(fileSize) bytes"
+                if let fileSize = attributes[.size] as? NSNumber,
+                   let creationDate = attributes[.creationDate] as? Date {
+                    
+                    let formattedDate = DateFormatter.localizedString(from: creationDate, dateStyle: .medium, timeStyle: .medium)
+                    let formattedSize = formatSize(fileSize, blockSize: blockSize)
+                    
+                    var formattedDetails = "\(formattedSize) \(formattedDate) \(item)"
+                    
+                    // Include author if --author option is provided
+                    if arguments.contains("--author") {
+                        if let fileOwner = attributes[.ownerAccountName] as? String {
+                            formattedDetails += " \(fileOwner)"
+                        }
+                    }
+                    
+                    print(formattedDetails)
                 }
-                details += " - \(fileModificationDate)"
-                
-                print(details)
-            } else {
+            }
+        } else if arguments.contains("-a") || arguments.contains("--all") {
+            for item in contents {
+                print(item)
+            }
+        } else if arguments.contains("-d") || arguments.contains("--directory") {
+            // List directory entries instead of contents
+            print(directoryPath)
+        } else {
+            for item in contents where !item.hasPrefix(".") {
                 print(item)
             }
         }
@@ -67,18 +67,18 @@ func ls_command(arguments: [String]) {
     }
 }
 
-// Function to convert file size to human-readable format
-func file_size_to_human_readable(_ size: Int) -> String {
-    let units = ["B", "KB", "MB", "GB", "TB"]
-    var fileSize = Double(size)
-    var unitIndex = 0
-    
-    while fileSize > 1024 {
-        fileSize /= 1024
-        unitIndex += 1
+// Function to format file size with block size
+func formatSize(_ fileSize: NSNumber, blockSize: Int) -> String {
+    let size = fileSize.intValue
+    let formattedSize: String
+    if size < blockSize {
+        formattedSize = "\(size)B"
+    } else if size < blockSize * blockSize {
+        formattedSize = "\(size / blockSize)KB"
+    } else {
+        formattedSize = "\(size / (blockSize * blockSize))MB"
     }
-    
-    return String(format: "%.1f %@", fileSize, units[unitIndex])
+    return formattedSize
 }
 
 // Function to print usage instructions
@@ -86,16 +86,21 @@ func ls_print_usage() {
     print("Usage: ls [OPTION]... [FILE]...")
     print("List information about the FILEs (the current directory by default).")
     print("\nOptions:")
-    print("  -a                do not ignore entries starting with .")
+    print("  -a, --all         do not ignore entries starting with .")
     print("  -l                use a long listing format")
-    print("  -h                with -l, print sizes in human readable format (e.g., 1K 234M 2G)")
+    print("  -la               list all files in long format")
+    print("      --author      with -l, print the author of each file")
+    print("  -b, --escape      with -b, print octal escapes for nongraphic characters")
+    print("      --block-size=SIZE  with -l, scale sizes by SIZE when printing them")
+    print("  -d, --directory   list directory entries instead of contents")
+    print("      --color       colorize the output")
     print("  --help            display this help and exit")
     print("  --version         output version information and exit")
 }
 
 // Function to print version information
 func ls_print_version() {
-    print("ls (cacutils) v1.0")
+    print("cat (cacutils) v1.0")
     print("There is NO WARRANTY, to the extent permitted by law.")
     print("Written by Cyril John Magayaga.")
 }
