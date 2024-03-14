@@ -34,7 +34,7 @@ struct Shell {
         let osName = colorize(ProcessInfo.processInfo.operatingSystemVersionString, color: ANSIColors.green)
         let username = colorize(NSUserName(), color: ANSIColors.green)
         
-        print("Welcome to Swift Shell!")
+        print("Welcome to Cacutils Shell!")
         while true {
             let directoryPath = colorize(getCurrentDirectory(), color: ANSIColors.blue)
             let prompt = "\(username)@\(osName):\(directoryPath) $ "
@@ -67,8 +67,10 @@ func hello_command(arguments: [String]) {
 // Create a shell instance
 var shell = Shell(commands: [:])
 
-// Register commands
+// Register the help command
 shell.register(command: Command(name: "help", handler: help_command))
+
+// Register the hello command
 shell.register(command: Command(name: "hello", handler: hello_command))
 
 // Register the cat command
@@ -76,6 +78,12 @@ shell.register(command: Command(name: "cat", handler: cat_command))
 
 // Register the ls command
 shell.register(command: Command(name: "ls", handler: ls_command))
+
+// Register the cd command
+shell.register(command: Command(name: "cd", handler: cd_command))
+
+// Register the sleep command
+shell.register(command: Command(name: "sleep", handler: sleep_command))
 
 // Start the shell
 shell.start()
