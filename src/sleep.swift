@@ -6,7 +6,9 @@ func sleep_command(arguments: [String]) {
     if arguments.contains("--help") {
         sleep_print_usage()
         return
-    } else if arguments.contains("--version") {
+    }
+    
+    else if arguments.contains("--version") {
         sleep_print_version()
         return
     }
@@ -49,10 +51,14 @@ func parseDuration(from arguments: [String]) -> TimeInterval {
     
     if let number = Double(numberString), let unit = unitChar {
         duration = number * unitMap[unit]!
-    } else {
+    }
+    
+    else {
         if let number = Double(durationString) {
             duration = number
-        } else {
+        }
+        
+        else {
             print("Invalid duration format.")
         }
     }

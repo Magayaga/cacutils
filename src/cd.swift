@@ -6,7 +6,9 @@ func cd_command(arguments: [String]) {
     if arguments.contains("--help") {
         cd_print_usage()
         return
-    } else if arguments.contains("--version") {
+    }
+    
+    else if arguments.contains("--version") {
         cd_print_version()
         return
     }
@@ -25,7 +27,9 @@ func cd_command(arguments: [String]) {
     // Change directory
     do {
         try FileManager.default.changeCurrentDirectoryPath(resolvedPath)
-    } catch {
+    }
+    
+    catch {
         print("cd: \(error.localizedDescription)")
     }
 }
@@ -39,14 +43,20 @@ func resolveDirectoryPath(directoryPath: String, arguments: [String]) -> String?
         // Follow symbolic links
         do {
             resolvedPath = try FileManager.default.destinationOfSymbolicLink(atPath: directoryPath)
-        } catch {
+        }
+        
+        catch {
             print("cd: \(directoryPath): No such file or directory")
             return nil
         }
-    } else if arguments.contains("-P") {
+    }
+    
+    else if arguments.contains("-P") {
         // Use physical directory structure
         resolvedPath = URL(fileURLWithPath: directoryPath).standardizedFileURL.path
-    } else if arguments.contains("~") {
+    }
+    
+    else if arguments.contains("~") {
         resolvedPath = NSHomeDirectory()
     }
 

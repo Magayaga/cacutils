@@ -19,7 +19,9 @@ struct Shell {
     func execute(commandName: String, arguments: [String]) {
         if let command = commands[commandName] {
             command.handler(arguments)
-        } else {
+        }
+        
+        else {
             print("Command not found: \(commandName)")
         }
     }

@@ -6,7 +6,9 @@ func cat_command(arguments: [String]) {
     if arguments.contains("--help") {
         cat_print_usage()
         return
-    } else if arguments.contains("--version") {
+    }
+    
+    else if arguments.contains("--version") {
         cat_print_version()
         return
     }
@@ -26,6 +28,7 @@ func cat_command(arguments: [String]) {
         if arguments.contains("-A") || arguments.contains("--show-all") {
             formattedContent = content.replacingOccurrences(of: "\n", with: "$\n").replacingOccurrences(of: "\t", with: "^I")
         }
+        
         if arguments.contains("-b") || arguments.contains("--number-nonblank") {
             var lineCount = 1
             formattedContent = content.split(separator: "\n").map { line -> String in
@@ -38,12 +41,15 @@ func cat_command(arguments: [String]) {
                 }
             }.joined(separator: "\n")
         }
+        
         if arguments.contains("-e") {
             formattedContent = content.replacingOccurrences(of: "\n", with: "$\n")
         }
+        
         if arguments.contains("-E") || arguments.contains("--show-ends") {
             formattedContent = content.replacingOccurrences(of: "\n", with: "$\n") + "$"
         }
+        
         if arguments.contains("-n") || arguments.contains("--number") {
             var lineCount = 1
             formattedContent = content.split(separator: "\n").map { line -> String in
@@ -52,18 +58,23 @@ func cat_command(arguments: [String]) {
                 return numberedLine
             }.joined(separator: "\n")
         }
+        
         if arguments.contains("-s") || arguments.contains("--squeeze-blank") {
             formattedContent = content.replacingOccurrences(of: "\n\n+", with: "\n", options: .regularExpression)
         }
+        
         if arguments.contains("-t") {
             formattedContent = content.replacingOccurrences(of: "\t", with: "^I")
         }
+        
         if arguments.contains("-T") || arguments.contains("--show-tabs") {
             formattedContent = content.replacingOccurrences(of: "\t", with: "^I")
         }
         
         print(formattedContent)
-    } catch {
+    }
+    
+    catch {
         print("Error reading file: \(fileName)")
     }
 }

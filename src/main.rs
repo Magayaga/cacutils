@@ -1,6 +1,9 @@
 use std::collections::HashMap;
 use std::env;
 use std::io::{self, Write};
+use crate::cat::cat_command;
+
+mod cat;
 
 // Define a struct to represent a command
 struct Command {
@@ -23,7 +26,9 @@ impl Shell {
     fn execute(&self, command_name: &str, arguments: Vec<String>) {
         if let Some(command) = self.commands.get(command_name) {
             (command.handler)(arguments);
-        } else {
+        }
+        
+        else {
             println!("Command not found: {}", command_name);
         }
     }
@@ -92,6 +97,11 @@ fn main() {
     shell.register(Command {
         name: "hello".to_string(),
         handler: hello_command,
+    });
+
+    shell.register(Command {
+        name: "cat".to_string(),
+        handler: cat_command,
     });
 
     // Start the shell

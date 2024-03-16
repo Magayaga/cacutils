@@ -6,7 +6,9 @@ func ls_command(arguments: [String]) {
     if arguments.contains("--help") {
         ls_print_usage()
         return
-    } else if arguments.contains("--version") {
+    }
+    
+    else if arguments.contains("--version") {
         ls_print_version()
         return
     }
@@ -50,19 +52,27 @@ func ls_command(arguments: [String]) {
                     print(formattedDetails)
                 }
             }
-        } else if arguments.contains("-a") || arguments.contains("--all") {
+        }
+        
+        else if arguments.contains("-a") || arguments.contains("--all") {
             for item in contents {
                 print(item)
             }
-        } else if arguments.contains("-d") || arguments.contains("--directory") {
+        }
+        
+        else if arguments.contains("-d") || arguments.contains("--directory") {
             // List directory entries instead of contents
             print(directoryPath)
-        } else {
+        }
+        
+        else {
             for item in contents where !item.hasPrefix(".") {
                 print(item)
             }
         }
-    } catch {
+    }
+    
+    catch {
         print("Error listing directory contents: \(error)")
     }
 }
@@ -73,9 +83,13 @@ func formatSize(_ fileSize: NSNumber, blockSize: Int) -> String {
     let formattedSize: String
     if size < blockSize {
         formattedSize = "\(size)B"
-    } else if size < blockSize * blockSize {
+    }
+    
+    else if size < blockSize * blockSize {
         formattedSize = "\(size / blockSize)KB"
-    } else {
+    }
+    
+    else {
         formattedSize = "\(size / (blockSize * blockSize))MB"
     }
     return formattedSize
