@@ -5,7 +5,7 @@
 |             Written in                      | Core utilities commands                       |
 |:-------------------------------------------:|:---------------------------------------------:|
 | [Swift](https://swift.org)                  | `cat`, `cd`, `ls`, `sleep`                    |
-| [Rust](https://rustlang.org)                | `cat`                                         |
+| [Rust](https://rustlang.org)                | `cat`, `cd`, `ls`, `sleep`                    |
 
 ## Copyright
 
