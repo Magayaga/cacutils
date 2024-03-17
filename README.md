@@ -10,9 +10,15 @@
 ## Getting started
 If you do want to try out `cacutils` locally, you'll need to install our build dependencies (swift, cargo, clang, git) and check out the Carbon repository, for example on Linux (Ubuntu), macOS, and Windows:
 
+### 1. Installing `Git`
 | Linux (Ubuntu)             | macOS              | Windows                          |
 |:---------------------------|:-------------------|:---------------------------------|
 | `sudo apt-get install git` | `brew install git` | `winget install -e --id Git.Git` |
+
+### 2. Installing `Swift`
+| Linux (Ubuntu)             | macOS              | Windows                          |
+|:---------------------------|:-------------------|:---------------------------------|
+| [Linux Installation Options](https://www.swift.org/install/linux/) | [macOS Installation Options](https://www.swift.org/install/macos/) | [Windows Installation Options](https://www.swift.org/install/windows/)
 
 ## Copyright
 
