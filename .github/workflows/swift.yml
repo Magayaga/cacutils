@@ -17,4 +17,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: swift src/main.swift
+      run: swift src/main.swift src/cat.swift src/cd.swift src/color.swifr src/ls.swift src/sleep.swift
