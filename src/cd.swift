@@ -84,7 +84,7 @@ func cd_print_usage() {
 
 // Function to print version information
 func cd_print_version() {
-    print("cat (cacutils) v1.0")
+    print("cd (cacutils) v1.0")
     print("There is NO WARRANTY, to the extent permitted by law.")
     print("Written by Cyril John Magayaga.")
 }

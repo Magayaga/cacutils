@@ -1,9 +1,16 @@
 use std::collections::HashMap;
 use std::env;
 use std::io::{self, Write};
-use crate::cat::cat_command;
 
 mod cat;
+mod cd;
+mod color;
+mod ls;
+
+use crate::cat::cat_command;
+use crate::cd::cd_command;
+use crate::color::{colorize, ANSIColors};
+use crate::ls::ls_command;
 
 // Define a struct to represent a command
 struct Command {
@@ -44,8 +51,9 @@ impl Shell {
         loop {
             let username = whoami::username();
             let os_name = sys_info::os_type().unwrap();
-            let directory_path = colorize(&Shell::get_current_directory(), ANSIColors::Blue);
-            print!("{}@{}:{} $ ", username, os_name, directory_path);
+            let directory_path = colorize(&Shell::get_current_directory(), ANSIColors::blue);
+            let username_colored = colorize(&username, ANSIColors::green);
+            print!("{}@{}:{} $ ", username_colored, os_name, directory_path);
             io::stdout().flush().unwrap();
             
             let mut input = String::new();
@@ -56,7 +64,7 @@ impl Shell {
                 self.execute(command_name, arguments);
             }
         }
-    }
+    }    
 }
 
 // Example commands
@@ -70,16 +78,6 @@ fn help_command(_arguments: Vec<String>) {
 
 fn hello_command(_arguments: Vec<String>) {
     println!("Hello, World!");
-}
-
-// Placeholder functions for colorize, cat_command, and ls_command
-fn colorize(text: &str, _color: ANSIColors) -> String {
-    text.to_string() // Placeholder implementation
-}
-
-enum ANSIColors {
-    Blue,
-    // Define other colors
 }
 
 fn main() {
@@ -102,6 +100,16 @@ fn main() {
     shell.register(Command {
         name: "cat".to_string(),
         handler: cat_command,
+    });
+
+    shell.register(Command {
+        name: "cd".to_string(),
+        handler: cd_command,
+    });
+
+    shell.register(Command {
+        name: "ls".to_string(),
+        handler: ls_command,
     });
 
     // Start the shell
