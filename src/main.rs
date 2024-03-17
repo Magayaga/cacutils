@@ -5,12 +5,14 @@ use std::io::{self, Write};
 mod cat;
 mod cd;
 mod color;
-mod ls;
+// mod ls;
+mod sleep;
 
 use crate::cat::cat_command;
 use crate::cd::cd_command;
 use crate::color::{colorize, ANSIColors};
-use crate::ls::ls_command;
+// use crate::ls::ls_command;
+use crate::sleep::sleep_command;
 
 // Define a struct to represent a command
 struct Command {
@@ -106,10 +108,17 @@ fn main() {
         name: "cd".to_string(),
         handler: cd_command,
     });
-
+    
+    /*
     shell.register(Command {
         name: "ls".to_string(),
         handler: ls_command,
+    });
+    */
+
+    shell.register(Command {
+        name: "sleep".to_string(),
+        handler: sleep_command,
     });
 
     // Start the shell
