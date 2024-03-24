@@ -6,27 +6,32 @@
 |:-------------------------------------------:|:---------------------------------------------:|
 | [Swift](https://swift.org)                  | `cat`, `cd`, `ls`, `sleep`                    |
 | [Rust](https://rustlang.org)                | `cat`, `cd`, `ls`, `sleep`                    |
+| [Go](https://go.dev)                        | TBA                                           |
 
 ## Getting started
-If you do want to try out `cacutils` locally, you'll need to install our build dependencies (swift, cargo, clang, git) and check out the Carbon repository, for example on Linux (Ubuntu), macOS, and Windows:
+If you do want to try out `cacutils` locally, you'll need to install our build dependencies (swift, cargo, go, clang, git) and check out the Carbon repository, for example on **Linux (Ubuntu)**, **macOS**, and **Windows**:
 
 ### 1. Installing `git`
-| Linux (Ubuntu)             | macOS              | Windows                          |
-|:---------------------------|:-------------------|:---------------------------------|
-| `sudo apt-get install git` | `brew install git` | `winget install -e --id Git.Git` |
+  | Linux (Ubuntu)             | macOS              | Windows                          |
+  |:---------------------------|:-------------------|:---------------------------------|
+  | `sudo apt-get install git` | `brew install git` | `winget install -e --id Git.Git` |
+
+Open the [official download link of the Git](https://git-scm.com/download/).
 
 ### 2. Installing `swift`
-| Linux (Ubuntu)             | macOS              | Windows                          |
-|:---------------------------|:-------------------|:---------------------------------|
-| [Linux Installation Options](https://www.swift.org/install/linux/) | [macOS Installation Options](https://www.swift.org/install/macos/) | [Windows Installation Options](https://www.swift.org/install/windows/)
+  | Linux (Ubuntu)             | macOS              | Windows                          |
+  |:---------------------------|:-------------------|:---------------------------------|
+  | [Linux Installation Options](https://www.swift.org/install/linux/) | [macOS Installation Options](https://www.swift.org/install/macos/) | [Windows Installation Options](https://www.swift.org/install/windows/)
 
 ### 3. Installing `cargo` and `rustc`
 Open the [official link of the Rust programming language](https://rustlang.org/).
 
 ### 4. Installing `go`
-| Linux (Ubuntu)             | macOS              | Windows                          |
-|:---------------------------|:-------------------|:---------------------------------|
-| `sudo snap install go`     | `brew install go`  | `winget install -e --id GoLang.Go.1.20` |
+  | Linux (Ubuntu)             | macOS              | Windows                                 |
+  |:---------------------------|:-------------------|:----------------------------------------|
+  | `sudo snap install go`     | `brew install go`  | `winget install -e --id GoLang.Go.1.20` |
+
+Open the [official download link of the Go programming language](https://go.dev/dl/).
 
 ## Copyright
 
