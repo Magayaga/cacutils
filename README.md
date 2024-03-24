@@ -1,6 +1,6 @@
 # cacutils
 
-**Computational Automation and Core Utilities** or **cacutils** is a package of software containing implementations for many of the basic tools, such as `cat`, `ls`, `sleep`, `time`, and `rm`, which are used on **Windows**, **Linux**, and **macOS** operating systems. It was written in **Swift** and **Rust** programming languages.
+**Computational Automation and Core Utilities** or **cacutils** is a package of software containing implementations for many of the basic tools, such as `cat`, `ls`, `sleep`, `time`, and `rm`, which are used on **Windows**, **Linux**, and **macOS** operating systems. It was written in **Swift**, **Rust**, and **Go** programming languages.
 
 |             Written in                      | Core utilities commands                       |
 |:-------------------------------------------:|:---------------------------------------------:|
@@ -22,6 +22,11 @@ If you do want to try out `cacutils` locally, you'll need to install our build d
 
 ### 3. Installing `cargo` and `rustc`
 Open the [official link of the Rust programming language](https://rustlang.org/).
+
+### 4. Installing `go`
+| Linux (Ubuntu)             | macOS              | Windows                          |
+|:---------------------------|:-------------------|:---------------------------------|
+| `sudo snap install go`     | `brew install go`  | `winget install -e --id GoLang.Go.1.20` |
 
 ## Copyright
 
