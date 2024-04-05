@@ -7,6 +7,6 @@ edition = "2021"
 
 [dependencies]
 dirs = "3.0.2"
-whoami = "0.8.2"
+whoami = "1.5.0"
 sys-info = "0.8.0"
 chrono = "0.4.19"
