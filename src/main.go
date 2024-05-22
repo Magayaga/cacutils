@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/user"
+	"runtime"
 	"strings"
 )
 
@@ -53,7 +54,7 @@ func (s *Shell) start() {
 
 	for {
 		directoryPath := getCurrentDirectory()
-		fmt.Printf("%s@%s:%s $ ", user.Username, "your_os_name", directoryPath)
+		fmt.Printf("%s@%s:%s $ ", user.Username, runtime.GOOS, directoryPath)
 
 		reader := bufio.NewReader(os.Stdin)
 		input, err := reader.ReadString('\n')
@@ -76,13 +77,14 @@ func (s *Shell) start() {
 }
 
 // Example commands
-func help_command(arguments []string) {
+func helpCommand(arguments []string) {
 	fmt.Println("Available commands:")
 	fmt.Println("help - Display available commands")
 	fmt.Println("hello - Print Hello World!")
+	fmt.Println("cat <file> [OPTION]... - Display content of a file")
 }
 
-func hello_command(arguments []string) {
+func helloCommand(arguments []string) {
 	fmt.Println("Hello, World!")
 }
 
@@ -90,10 +92,22 @@ func main() {
 	shell := Shell{commands: make(map[string]Command)}
 
 	// Register the help command
-	shell.register(Command{name: "help", handler: help_command})
+	shell.register(Command{name: "help", handler: helpCommand})
 
 	// Register the hello command
-	shell.register(Command{name: "hello", handler: hello_command})
+	shell.register(Command{name: "hello", handler: helloCommand})
+
+	// Register the cat command
+	shell.register(Command{name: "cat", handler: catCommand})
+
+	// Register the cd command
+	shell.register(Command{name: "cd", handler: cdCommand})
+
+	// Register the ls command
+	shell.register(Command{name: "ls", handler: lsCommand})
+
+	// Register the sleep command
+	shell.register(Command{name: "sleep", handler: sleepCommand})
 
 	// Start the shell
 	shell.start()
