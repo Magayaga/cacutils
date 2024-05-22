@@ -9,7 +9,7 @@
 | [Go](https://go.dev)                        | TBA                                           |
 
 ## Getting started
-If you do want to try out `cacutils` locally, you'll need to install our build dependencies (swift, cargo, go, clang, git) and check out the Carbon repository, for example on **Linux (Ubuntu)**, **macOS**, and **Windows**:
+If you do want to try out `cacutils` locally, you'll need to install our build dependencies (swift, cargo, go, clang, git) and check out the Cacutils repository, for example on **Linux (Ubuntu)**, **macOS**, and **Windows**:
 
 ### 1. Installing `git`
   | Linux (Ubuntu)             | macOS              | Windows                          |
@@ -29,7 +29,7 @@ Open the [official link of the Rust programming language](https://rustlang.org/)
 ### 4. Installing `go`
   | Linux (Ubuntu)             | macOS              | Windows                                 |
   |:---------------------------|:-------------------|:----------------------------------------|
-  | `sudo snap install go`     | `brew install go`  | `winget install -e --id GoLang.Go.1.20` |
+  | `sudo snap install go`     | `brew install go`  | `winget install --id=GoLang.Go  -e`     |
 
 Open the [official download link of the Go programming language](https://go.dev/dl/).
 
