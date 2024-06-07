@@ -109,6 +109,9 @@ func main() {
 	// Register the sleep command
 	shell.register(Command{name: "sleep", handler: sleepCommand})
 
+	// Register the cp command
+	shell.register(Command{name: "cp", handler: cpCommand})
+
 	// Start the shell
 	shell.start()
 }
