@@ -1,7 +1,6 @@
 use std::fs;
 use std::path::Path;
-use chrono::DateTime;
-use chrono::Local;
+use chrono::{DateTime, Local};
 
 // Function to implement the 'ls' command
 pub fn ls_command(arguments: Vec<String>) {
@@ -10,21 +9,21 @@ pub fn ls_command(arguments: Vec<String>) {
         ls_print_usage();
         return;
     }
-    
-    else if arguments.contains(&String::from("--version")) {
+
+    if arguments.contains(&String::from("--version")) {
         ls_print_version();
         return;
     }
-    
+
     // Get the directory path (if provided) or use the current directory
     let directory_path = match arguments.get(1) {
         Some(path) => Path::new(path),
         None => Path::new("."),
     };
-    
+
     // Set default block size
     let mut block_size = 1024;
-    
+
     // Determine block size if provided in arguments
     if let Some(block_size_arg) = arguments.iter().find(|arg| arg.starts_with("--block-size=")) {
         if let Some(size_str) = block_size_arg.split('=').last() {
@@ -33,30 +32,21 @@ pub fn ls_command(arguments: Vec<String>) {
             }
         }
     }
-    
+
     match fs::read_dir(directory_path) {
         Ok(entries) => {
             for entry in entries {
                 if let Ok(entry) = entry {
                     let metadata = entry.metadata().unwrap();
                     let file_name = entry.file_name().into_string().unwrap();
-                    if let Ok(created) = metadata.created() {
-                        let created_datetime: DateTime<Local> = created.into();
-                        let formatted_date = created_datetime.format("%b %d %H:%M");
-                        
+                    if let Ok(modified) = metadata.modified() {
+                        let modified_datetime: DateTime<Local> = DateTime::from(modified);
+                        let formatted_date = modified_datetime.format("%b %d %H:%M");
+
                         let formatted_size = format_size(metadata.len() as usize, block_size);
-                        
-                        let mut formatted_details = format!("{} {} {}", formatted_size, formatted_date, file_name);
-                        
-                        // Include author if --author option is provided
-                        if arguments.contains(&String::from("--author")) {
-                            if let Some(uid) = metadata.uid() {
-                                if let Some(username) = users::get_user_by_uid(uid) {
-                                    formatted_details += &format!(" {}", username.name().to_string_lossy());
-                                }
-                            }
-                        }
-                        
+
+                        let formatted_details = format!("{} {} {}", formatted_size, formatted_date, file_name);
+
                         println!("{}", formatted_details);
                     }
                 }
@@ -72,13 +62,9 @@ pub fn ls_command(arguments: Vec<String>) {
 fn format_size(file_size: usize, block_size: usize) -> String {
     if file_size < block_size {
         format!("{}B", file_size)
-    }
-    
-    else if file_size < block_size * block_size {
+    } else if file_size < block_size * block_size {
         format!("{}KB", file_size / block_size)
-    }
-    
-    else {
+    } else {
         format!("{}MB", file_size / (block_size * block_size))
     }
 }
@@ -91,8 +77,6 @@ fn ls_print_usage() {
     println!("  -a, --all         do not ignore entries starting with .");
     println!("  -l                use a long listing format");
     println!("  -la               list all files in long format");
-    println!("      --author      with -l, print the author of each file");
-    println!("  -b, --escape      with -b, print octal escapes for nongraphic characters");
     println!("      --block-size=SIZE  with -l, scale sizes by SIZE when printing them");
     println!("  -d, --directory   list directory entries instead of contents");
     println!("      --color       colorize the output");

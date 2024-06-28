@@ -4,12 +4,16 @@ use std::io::{self, Write};
 
 mod cat;
 mod cd;
+mod cp;
+mod ls;
 mod color;
 // mod ls;
 mod sleep;
 
 use crate::cat::cat_command;
 use crate::cd::cd_command;
+use crate::cp::cp_command;
+use crate::ls::ls_command;
 use crate::color::{colorize, ANSIColors};
 // use crate::ls::ls_command;
 use crate::sleep::sleep_command;
@@ -108,13 +112,16 @@ fn main() {
         name: "cd".to_string(),
         handler: cd_command,
     });
+
+    shell.register(Command {
+        name: "cp".to_string(),
+        handler: cp_command,
+    });
     
-    /*
     shell.register(Command {
         name: "ls".to_string(),
         handler: ls_command,
     });
-    */
 
     shell.register(Command {
         name: "sleep".to_string(),
