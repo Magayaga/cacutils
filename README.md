@@ -6,7 +6,7 @@
 |:-------------------------------------------:|:---------------------------------------------:|
 | [Swift](https://swift.org)                  | `cat`, `cd`, `ls`, `sleep`                    |
 | [Rust](https://rustlang.org)                | `cat`, `cd`, `ls`, `sleep`                    |
-| [Go](https://go.dev)                        | `cat`, `cd`, `ls`, `sleep`                    |
+| [Go](https://go.dev)                        | `cat`, `cd`, `ls`, `sleep`, `cp`              |
 
 ## Getting started
 If you do want to try out `cacutils` locally, you'll need to install our build dependencies (swift, cargo, rustic, go, clang, git) and check out the Cacutils repository, for example on **Linux (Ubuntu)**, **macOS**, and **Windows**:
