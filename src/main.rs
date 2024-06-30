@@ -5,18 +5,18 @@ use std::io::{self, Write};
 mod cat;
 mod cd;
 mod cp;
-mod ls;
 mod color;
-// mod ls;
+mod ls;
 mod sleep;
+// mod time;
 
 use crate::cat::cat_command;
 use crate::cd::cd_command;
 use crate::cp::cp_command;
-use crate::ls::ls_command;
 use crate::color::{colorize, ANSIColors};
-// use crate::ls::ls_command;
+use crate::ls::ls_command;
 use crate::sleep::sleep_command;
+// use crate::time::time_command;
 
 // Define a struct to represent a command
 struct Command {
@@ -57,9 +57,9 @@ impl Shell {
         loop {
             let username = whoami::username();
             let os_name = sys_info::os_type().unwrap();
-            let directory_path = colorize(&Shell::get_current_directory(), ANSIColors::blue);
-            let username_colored = colorize(&username, ANSIColors::green);
-            print!("{}@{}:{} $ ", username_colored, os_name, directory_path);
+            let directory_path = colorize(&Shell::get_current_directory(), ANSIColors::BLUE);
+            let username_colored = colorize(&username, ANSIColors::GREEN);
+            print!("{}@{}: {} $ ", username_colored, os_name, directory_path);
             io::stdout().flush().unwrap();
             
             let mut input = String::new();
@@ -127,6 +127,13 @@ fn main() {
         name: "sleep".to_string(),
         handler: sleep_command,
     });
+
+    /*
+    shell.register(Command {
+        name: "time".to_string(),
+        handler: time_command,
+    });
+    */
 
     // Start the shell
     shell.start();
