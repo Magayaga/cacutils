@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::env;
 use std::io::{self, Write};
+use std::process::{Command as ProcessCommand, Stdio};
 
 mod cat;
 mod cd;
@@ -39,10 +40,27 @@ impl Shell {
     fn execute(&self, command_name: &str, arguments: Vec<String>) {
         if let Some(command) = self.commands.get(command_name) {
             (command.handler)(arguments);
+        } else {
+            self.execute_external(command_name, arguments);
         }
-        
-        else {
-            println!("Command not found: {}", command_name);
+    }
+    
+    // Function to execute an external command
+    fn execute_external(&self, command_name: &str, arguments: Vec<String>) {
+        match ProcessCommand::new(command_name)
+            .args(&arguments)
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
+            .status()
+        {
+            Ok(status) => {
+                if !status.success() {
+                    eprintln!("Command {} failed with status {}", command_name, status);
+                }
+            }
+            Err(err) => {
+                eprintln!("Command not found: {}", command_name);
+            }
         }
     }
     
@@ -80,6 +98,10 @@ fn help_command(_arguments: Vec<String>) {
     println!("hello - Print Hello World!");
     println!("cat <file> [OPTION]... - Display content of a file");
     println!("ls [OPTION]... [FILE]... - List directory contents");
+    println!("cd <dir> - Change the current directory");
+    println!("cp <source> <destination> - Copy files");
+    println!("sleep <seconds> - Sleep for a specified number of seconds");
+    println!("time [COMMAND] [ARGS]... - Measure execution time of a command");
 }
 
 fn hello_command(_arguments: Vec<String>) {
