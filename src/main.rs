@@ -9,7 +9,8 @@ mod cp;
 mod color;
 mod ls;
 mod sleep;
-// mod time;
+mod time;
+mod rm;
 
 use crate::cat::cat_command;
 use crate::cd::cd_command;
@@ -17,7 +18,8 @@ use crate::cp::cp_command;
 use crate::color::{colorize, ANSIColors};
 use crate::ls::ls_command;
 use crate::sleep::sleep_command;
-// use crate::time::time_command;
+use crate::time::time_command;
+use crate::rm::rm_command;
 
 // Define a struct to represent a command
 struct Command {
@@ -58,7 +60,7 @@ impl Shell {
                     eprintln!("Command {} failed with status {}", command_name, status);
                 }
             }
-            Err(err) => {
+            Err(_err) => {
                 eprintln!("Command not found: {}", command_name);
             }
         }
@@ -102,6 +104,7 @@ fn help_command(_arguments: Vec<String>) {
     println!("cp <source> <destination> - Copy files");
     println!("sleep <seconds> - Sleep for a specified number of seconds");
     println!("time [COMMAND] [ARGS]... - Measure execution time of a command");
+    println!("rm [OPTION]... FILE...")
 }
 
 fn hello_command(_arguments: Vec<String>) {
@@ -150,12 +153,15 @@ fn main() {
         handler: sleep_command,
     });
 
-    /*
     shell.register(Command {
         name: "time".to_string(),
         handler: time_command,
     });
-    */
+
+    shell.register(Command {
+        name: "rm".to_string(),
+        handler: rm_command,
+    });
 
     // Start the shell
     shell.start();
