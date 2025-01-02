@@ -1,6 +1,11 @@
-# cacutils
+<p align="center">
+  <a href="https://github.com/Magayaga/Cacutils">
+    <img src="brands/cacutils-logo.svg" alt="Cacutils logo" width="auto" height="100">
+  </a>
+</p>
+<h1 align="center">Cacutils</h1>
 
-**Computational Automation and Core Utilities** or **cacutils** is a package of software containing implementations for many of the basic tools, such as `cat`, `ls`, `sleep`, `time`, `cd`, and `rm`, which are used on **Windows**, **Linux**, and **macOS** operating systems. It was written in **Swift**, **Rust**, and **Go** programming languages.
+**Computational Automation and Core Utilities** also known as **cacutils** is a package of software containing implementations for many of the basic tools, such as `cat`, `ls`, `sleep`, `time`, `cd`, and `rm`, which are used on **Windows**, **Linux**, and **macOS** operating systems. It was written in **Swift**, **Rust**, and **Go** programming languages. It is created and developed by [Cyril John Magayaga](https://github.com/Magayaga).
 
 |             Written in                      | Core utilities commands                       |
 |:-------------------------------------------:|:---------------------------------------------:|
