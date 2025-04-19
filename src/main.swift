@@ -87,5 +87,17 @@ shell.register(command: Command(name: "cd", handler: cd_command))
 // Register the sleep command
 shell.register(command: Command(name: "sleep", handler: sleep_command))
 
+// Register the cp command
+shell.register(command: Command(name: "cp", handler: cp_command))
+
+// Register the time command
+shell.register(command: Command(name: "time", handler: time_command))
+
+// Register the mkdir command
+shell.register(command: Command(name: "mkdir", handler: mkdir_command))
+
+// Register the rm command
+shell.register(command: Command(name: "rm", handler: rm_command))
+
 // Start the shell
 shell.start()

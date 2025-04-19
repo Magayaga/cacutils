@@ -20,17 +20,13 @@ func cd_command(arguments: [String]) {
     }
 
     // Validate and resolve the directory path
-    guard var resolvedPath = resolveDirectoryPath(directoryPath: directoryPath, arguments: arguments) else {
+    guard let resolvedPath = resolveDirectoryPath(directoryPath: directoryPath, arguments: arguments) else {
         return
     }
 
     // Change directory
-    do {
-        try FileManager.default.changeCurrentDirectoryPath(resolvedPath)
-    }
-    
-    catch {
-        print("cd: \(error.localizedDescription)")
+    if !FileManager.default.changeCurrentDirectoryPath(resolvedPath) {
+        print("cd: failed to change directory to \(resolvedPath)")
     }
 }
 
