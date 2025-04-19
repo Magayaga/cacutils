@@ -107,6 +107,13 @@ func main() {
 
 	// Register the time command
 	shell.register(Command{name: "time", handler: timeCommand})
+	
+	// Register the mkdir command
+	shell.register(Command{name: "mkdir", handler: mkdirCommand})
+
+	
+	// Register the rm command
+	shell.register(Command{name: "rm", handler: rmCommand})
 
 	// Start the shell
 	shell.start()
