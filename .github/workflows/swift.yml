@@ -17,4 +17,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: swiftc main.swift ls.swift cat.swift color.swift cd.swift sleep.swift time.swift cp.swift rm.swift mkdir.swift -o cacutils
+      run: swiftc src/main.swift src/ls.swift src/cat.swift src/color.swift src/cd.swift src/sleep.swift src/time.swift src/cp.swift src/rm.swift src/mkdir.swift -o cacutils
