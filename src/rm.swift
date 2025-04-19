@@ -87,7 +87,7 @@ func rm_print_usage() {
 
 func rm_print_version() {
     print("""
-    rm (rmutills) v1.0
+    rm (cacutils) v1.0
     There is NO WARRANTY, to the extent permitted by law.
     Written by Cyril John Magayaga.
     """)

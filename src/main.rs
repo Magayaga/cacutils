@@ -11,6 +11,7 @@ mod ls;
 mod sleep;
 mod time;
 mod rm;
+mod mkdir;
 
 use crate::cat::cat_command;
 use crate::cd::cd_command;
@@ -20,6 +21,7 @@ use crate::ls::ls_command;
 use crate::sleep::sleep_command;
 use crate::time::time_command;
 use crate::rm::rm_command;
+use crate::mkdir::mkdir_command;
 
 // Define a struct to represent a command
 struct Command {
@@ -161,6 +163,11 @@ fn main() {
     shell.register(Command {
         name: "rm".to_string(),
         handler: rm_command,
+    });
+
+    shell.register(Command {
+        name: "mkdir".to_string(),
+        handler: mkdir_command,
     });
 
     // Start the shell

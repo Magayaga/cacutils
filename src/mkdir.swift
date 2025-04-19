@@ -66,7 +66,7 @@ func mkdir_print_usage() {
 
 func mkdir_print_version() {
     print("""
-    mkdir (mkdirutils) v1.0
+    mkdir (cacutils) v1.0
     There is NO WARRANTY, to the extent permitted by law.
     Written by Cyril John Magayaga.
     """)
