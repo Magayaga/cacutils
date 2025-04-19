@@ -53,9 +53,7 @@ func cpCommand(arguments []string) {
 	if help {
 		cpPrintUsage()
 		return
-	}
-	
-	else if version {
+	} else if version {
 		cpPrintVersion()
 		return
 	}
@@ -75,9 +73,7 @@ func cpCommand(arguments []string) {
 		if err != nil {
 			fmt.Printf("cp: %v\n", err)
 		}
-	}
-	
-	else {
+	} else {
 		err := copyFile(sourceFile, destinationFile)
 		if err != nil {
 			fmt.Printf("cp: %v\n", err)
@@ -122,9 +118,7 @@ func copyDir(sourceDir, destinationDir string) error {
 			if err != nil {
 				return err
 			}
-		}
-		
-		else {
+		} else {
 			err := copyFile(path, destinationPath)
 			if err != nil {
 				return err

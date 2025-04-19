@@ -84,18 +84,11 @@ func helpCommand(arguments []string) {
 	fmt.Println("cat <file> [OPTION]... - Display content of a file")
 }
 
-func helloCommand(arguments []string) {
-	fmt.Println("Hello, World!")
-}
-
 func main() {
 	shell := Shell{commands: make(map[string]Command)}
 
 	// Register the help command
 	shell.register(Command{name: "help", handler: helpCommand})
-
-	// Register the hello command
-	shell.register(Command{name: "hello", handler: helloCommand})
 
 	// Register the cat command
 	shell.register(Command{name: "cat", handler: catCommand})
@@ -111,6 +104,9 @@ func main() {
 
 	// Register the cp command
 	shell.register(Command{name: "cp", handler: cpCommand})
+
+	// Register the time command
+	shell.register(Command{name: "time", handler: timeCommand})
 
 	// Start the shell
 	shell.start()
