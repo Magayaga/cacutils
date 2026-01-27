@@ -12,7 +12,7 @@
 | [Swift](https://swift.org)                  | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir` |
 | [Rust](https://rustlang.org)                | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir` |
 | [Go](https://go.dev)                        | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir`, `echo` |
-| Zig | TBA (Fall 2025) |
+| Zig | - |
 
 ## Getting started
 If you do want to try out `cacutils` locally, you'll need to install our build dependencies (swift, cargo, rustic, go, clang, git) and check out the Cacutils repository, for example on **Linux (Ubuntu)**, **macOS**, and **Windows**:
@@ -41,4 +41,4 @@ Open the [official download link of the Go programming language](https://go.dev/
 
 ## Copyright
 
-Copyright (c) 2024-2025 Cyril John Magayaga. Licensed under the [Apache v2.0](LICENSE) license.
+Copyright (c) 2024-2026 Cyril John Magayaga. Licensed under the [Apache v2.0](LICENSE) license.
