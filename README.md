@@ -32,6 +32,10 @@ Open the [official download link of the Git](https://git-scm.com/download/).
 ### 3. Installing `cargo` and `rustc`
 Open the [official link of the Rust programming language](https://rustlang.org/).
 
+| WSL, Linux, macOS, or Unix | Windows |
+|:----|:----|
+| ```curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh``` | download and run [`rustup‑init.exe`](https://win.rustup.rs/) then follow the on-screen instructions.
+
 ### 4. Installing `go`
   | Linux (Ubuntu)             | macOS              | Windows                                 |
   |:---------------------------|:-------------------|:----------------------------------------|
