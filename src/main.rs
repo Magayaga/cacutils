@@ -3,20 +3,24 @@ use std::env;
 use std::io::{self, Write};
 use std::process::{Command as ProcessCommand, Stdio};
 
+mod awk;
 mod cat;
 mod cd;
 mod cp;
 mod color;
+mod echo;
 mod ls;
 mod sleep;
 mod time;
 mod rm;
 mod mkdir;
 
+use crate::awk::awk_command;
 use crate::cat::cat_command;
 use crate::cd::cd_command;
 use crate::cp::cp_command;
 use crate::color::{colorize, ANSIColors};
+use crate::echo::echo_command;
 use crate::ls::ls_command;
 use crate::sleep::sleep_command;
 use crate::time::time_command;
@@ -106,7 +110,9 @@ fn help_command(_arguments: Vec<String>) {
     println!("cp <source> <destination> - Copy files");
     println!("sleep <seconds> - Sleep for a specified number of seconds");
     println!("time [COMMAND] [ARGS]... - Measure execution time of a command");
-    println!("rm [OPTION]... FILE...")
+    println!("rm [OPTION]... FILE...");
+    println!("echo [OPTION]... [STRING]... - Echo the STRING(s) to standard output");
+    println!("awk [OPTION]... 'program' [FILE]... - Pattern scanning and text processing language");
 }
 
 fn hello_command(_arguments: Vec<String>) {
@@ -168,6 +174,16 @@ fn main() {
     shell.register(Command {
         name: "mkdir".to_string(),
         handler: mkdir_command,
+    });
+
+    shell.register(Command {
+        name: "echo".to_string(),
+        handler: echo_command,
+    });
+
+    shell.register(Command {
+        name: "awk".to_string(),
+        handler: awk_command,
     });
 
     // Start the shell

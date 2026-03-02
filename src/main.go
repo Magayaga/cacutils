@@ -82,6 +82,7 @@ func helpCommand(arguments []string) {
 	fmt.Println("help - Display available commands")
 	fmt.Println("hello - Print Hello World!")
 	fmt.Println("cat <file> [OPTION]... - Display content of a file")
+	fmt.Println("awk [OPTION]... 'program' [FILE]... - Pattern scanning and text processing language")
 }
 
 func main() {
@@ -114,6 +115,9 @@ func main() {
 	
 	// Register the rm command
 	shell.register(Command{name: "rm", handler: rmCommand})
+
+	// Register the awk command
+	shell.register(Command{name: "awk", handler: awkCommand})
 
 	// Start the shell
 	shell.start()

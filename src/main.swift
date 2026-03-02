@@ -60,6 +60,8 @@ func help_command(arguments: [String]) {
     print("hello - Print Hello World!")
     print("cat <file> [OPTION]... - Display content of a file")
     print("ls [OPTION]... [FILE]... - List directory contents")
+    print("echo [OPTION]... [STRING]... - Echo the STRING(s) to standard output")
+    print("awk [OPTION]... 'program' [FILE]... - Pattern scanning and text processing language")
 }
 
 func hello_command(arguments: [String]) {
@@ -98,6 +100,12 @@ shell.register(command: Command(name: "mkdir", handler: mkdir_command))
 
 // Register the rm command
 shell.register(command: Command(name: "rm", handler: rm_command))
+
+// Register the echo command
+shell.register(command: Command(name: "echo", handler: echo_command))
+
+// Register the awk command
+shell.register(command: Command(name: "awk", handler: awk_command))
 
 // Start the shell
 shell.start()
