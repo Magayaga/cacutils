@@ -93,7 +93,8 @@ func awk_command(arguments: [String]) {
     }
 
     do {
-        let program = try AWKParser(source: source).parse()
+        var parser = try AWKParser(source: source)
+        let program = try parser.parse()
         if inputFiles.isEmpty {
             // Read from stdin
             interpreter.run(program: program, input: AnyIterator {
@@ -467,13 +468,6 @@ struct AWKParser {
         current = try lexer.nextToken()
     }
 
-    mutating func peek() throws -> Token {
-        if let p = peeked { return p }
-        let t = try lexer.nextToken()
-        peeked = t
-        return t
-    }
-
     mutating func advance() throws -> Token {
         let t = current
         if let p = peeked { current = p; peeked = nil }
@@ -707,7 +701,7 @@ struct AWKParser {
                 let body = try parseStmt()
                 return .forInStmt(varName, arrayName, body)
             }
-            // Backtrack: re-inject saved token â€” not ideal, but we can parse init expr from remaining
+            // Backtrack: re-inject saved token — not ideal, but we can parse init expr from remaining
             // We re-lex by treating saved as start of expression; since we can't truly backtrack,
             // we use a workaround: build a variable expr from the saved identifier
             let initExpr: AWKExpr = .variable(varName)
@@ -757,7 +751,7 @@ struct AWKParser {
         }
     }
 
-    // Expression parsing â€” precedence climbing
+    // Expression parsing — precedence climbing
     mutating func parseExpr() throws -> AWKExpr { try parseTernary() }
 
     mutating func parseTernary() throws -> AWKExpr {
@@ -1497,7 +1491,7 @@ class AWKInterpreter {
         case "rand":
             return .number(Double.random(in: 0..<1))
         case "srand":
-            // Swift doesn't expose a seed â€” approximate with time
+            // Swift doesn't expose a seed — approximate with time
             return .number(0)
         case "tolower":
             let args = try evalArgs()
