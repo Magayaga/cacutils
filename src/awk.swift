@@ -496,7 +496,7 @@ struct AWKParser {
         var rules: [AWKRule] = []
         var functions: [String: AWKFunction] = [:]
         try skipTerminators()
-        while case .eof = current.kind {} == false {
+        while current.kind != .eof {
             if case .kw_function = current.kind {
                 let fn = try parseFunction()
                 functions[fn.name] = fn
@@ -688,7 +688,7 @@ struct AWKParser {
         try expect(.lparen)
         // Detect for-in: (var in array)
         if case .identifier(let varName) = current.kind {
-            let saved = current
+            let _ = current
             _ = try advance()
             if case .kw_in = current.kind {
                 _ = try advance()
@@ -1502,7 +1502,16 @@ class AWKInterpreter {
         case "system":
             let args = try evalArgs()
             let cmd = args[0].stringValue
-            let ret = Foundation.system(cmd)
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: "/bin/sh")
+            process.arguments = ["-c", cmd]
+            process.standardOutput = FileHandle.standardOutput
+            process.standardError = FileHandle.standardError
+            do {
+                try process.run()
+                process.waitUntilExit()
+            } catch {}
+            let ret = process.terminationStatus
             return .number(Double(ret))
         case "getline":
             if let line = readLine(strippingNewline: true) {
@@ -1663,7 +1672,7 @@ class AWKInterpreter {
             case "c":
                 let s: String
                 if case .string(let str) = arg, !str.isEmpty { s = String(str.prefix(1)) }
-                else { s = String(UnicodeScalar(UInt32(arg.numberValue) ?? 0)!) }
+                else { s = String(UnicodeScalar(UInt32(arg.numberValue))!) }
                 result += pad(s, w)
             default:
                 result += "%"
