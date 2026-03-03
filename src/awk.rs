@@ -425,7 +425,6 @@ enum Stmt {
     Exit(Option<Expr>),
     Return(Option<Expr>),
     Delete(String, Option<Vec<Expr>>),
-    Empty,
 }
 
 #[derive(Clone, Debug)]
@@ -465,13 +464,6 @@ impl AWKParser {
         let mut lexer = Lexer::new(src);
         let current = lexer.next_token().unwrap_or(Token { kind: TK::Eof, line: 1 });
         AWKParser { lexer, current, peeked: None }
-    }
-
-    fn peek(&mut self) -> Result<&Token, AWKError> {
-        if self.peeked.is_none() {
-            self.peeked = Some(self.lexer.next_token()?);
-        }
-        Ok(self.peeked.as_ref().unwrap())
     }
 
     fn advance(&mut self) -> Result<Token, AWKError> {
@@ -929,7 +921,6 @@ impl AWKParser {
 
 enum Signal {
     Break, Continue, Next,
-    Exit(AWKValue),
     Return(AWKValue),
 }
 
@@ -1014,10 +1005,7 @@ impl AWKInterpreter {
         // BEGIN
         for rule in &prog.rules {
             if matches!(rule.pattern, Pattern::Begin) {
-                match self.exec_stmt(&rule.action, &mut locals, prog) {
-                    Err(Signal::Exit(_)) => return,
-                    _ => {}
-                }
+                let _ = self.exec_stmt(&rule.action, &mut locals, prog);
             }
         }
 
@@ -1053,7 +1041,6 @@ impl AWKInterpreter {
                 if matched {
                     match self.exec_stmt(&rule.action, &mut locals, prog) {
                         Err(Signal::Next) => break 'rules,
-                        Err(Signal::Exit(_)) => return,
                         _ => {}
                     }
                 }
@@ -1063,17 +1050,13 @@ impl AWKInterpreter {
         // END
         for rule in &prog.rules {
             if matches!(rule.pattern, Pattern::End) {
-                match self.exec_stmt(&rule.action, &mut locals, prog) {
-                    Err(Signal::Exit(_)) => return,
-                    _ => {}
-                }
+                let _ = self.exec_stmt(&rule.action, &mut locals, prog);
             }
         }
     }
 
     fn exec_stmt(&mut self, stmt: &Stmt, locals: &mut HashMap<String, AWKValue>, prog: &Program) -> Result<(), Signal> {
         match stmt {
-            Stmt::Empty => {}
             Stmt::Block(stmts) => {
                 for s in stmts { self.exec_stmt(s, locals, prog)?; }
             }
@@ -1163,9 +1146,9 @@ impl AWKInterpreter {
             Stmt::Continue => return Err(Signal::Continue),
             Stmt::Next     => return Err(Signal::Next),
             Stmt::Exit(e) => {
-                let v = e.as_ref().and_then(|ex| self.eval_expr(ex, locals, prog).ok())
-                    .unwrap_or(AWKValue::Num(0.0));
-                return Err(Signal::Exit(v));
+                let code = e.as_ref().and_then(|ex| self.eval_expr(ex, locals, prog).ok())
+                    .unwrap_or(AWKValue::Num(0.0)).to_num() as i32;
+                std::process::exit(code);
             }
             Stmt::Return(e) => {
                 let v = e.as_ref().and_then(|ex| self.eval_expr(ex, locals, prog).ok())
