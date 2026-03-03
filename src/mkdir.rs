@@ -1,4 +1,3 @@
-use std::env;
 use std::fs::{self, DirBuilder};
 use std::path::Path;
 
