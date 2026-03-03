@@ -9,9 +9,9 @@
 
 |             Written in                      | Core utilities commands                       |
 |:-------------------------------------------:|:---------------------------------------------:|
-| [Swift](https://swift.org)                  | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir` |
-| [Rust](https://rustlang.org)                | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir` |
-| [Go](https://go.dev)                        | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir`, `echo` |
+| [Swift](https://swift.org)                  | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir`, `echo`, `awk` |
+| [Rust](https://rustlang.org)                | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir`. `echo`, `awk` |
+| [Go](https://go.dev)                        | `cat`, `cd`, `cp`, `ls`, `sleep`, `time`, `rm`, `mkdir`, `echo`, `awk` |
 | Zig | - |
 
 ## Getting started
