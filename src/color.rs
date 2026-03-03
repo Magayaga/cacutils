@@ -1,5 +1,6 @@
 pub struct ANSIColors;
 
+#[allow(dead_code)]
 impl ANSIColors {
     pub const GREEN: &'static str = "\u{001B}[32m";
     pub const BLUE: &'static str = "\u{001B}[34m";
