@@ -21,7 +21,7 @@ func cat_command(arguments: [String]) {
     
     // Read the content of the file
     do {
-        let content = try String(contentsOfFile: fileName)
+        let content = try String(contentsOfFile: fileName, encoding: .utf8)
         
         // Apply options
         var formattedContent = content
