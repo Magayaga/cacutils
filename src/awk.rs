@@ -4,8 +4,6 @@ use std::fs;
 use std::io::{self, BufRead, Write};
 use std::process::{Command as ProcessCommand, Stdio};
 
-// ─── Entry point ─────────────────────────────────────────────────────────────
-
 pub fn awk_command(arguments: Vec<String>) {
     if arguments.contains(&"--help".to_string()) {
         awk_print_usage();
@@ -134,8 +132,6 @@ fn unescape_fs(s: &str) -> String {
     s.replace("\\t", "\t").replace("\\n", "\n")
 }
 
-// ─── Error ───────────────────────────────────────────────────────────────────
-
 #[derive(Debug)]
 struct AWKError(String);
 
@@ -148,8 +144,6 @@ impl fmt::Display for AWKError {
 macro_rules! awk_err {
     ($($arg:tt)*) => { AWKError(format!($($arg)*)) }
 }
-
-// ─── Value ───────────────────────────────────────────────────────────────────
 
 #[derive(Clone, Debug)]
 enum AWKValue {
@@ -210,8 +204,6 @@ fn compare_values(a: &AWKValue, b: &AWKValue) -> std::cmp::Ordering {
         }
     }
 }
-
-// ─── Lexer ───────────────────────────────────────────────────────────────────
 
 #[derive(Clone, Debug, PartialEq)]
 enum TK {
@@ -389,8 +381,6 @@ impl Lexer {
     }
 }
 
-// ─── AST ─────────────────────────────────────────────────────────────────────
-
 #[derive(Clone, Debug)]
 enum Expr {
     Num(f64),
@@ -463,8 +453,6 @@ struct Program {
     rules: Vec<Rule>,
     functions: HashMap<String, Function>,
 }
-
-// ─── Parser ───────────────────────────────────────────────────────────────────
 
 struct AWKParser {
     lexer: Lexer,
@@ -939,15 +927,11 @@ impl AWKParser {
     }
 }
 
-// ─── Control flow ────────────────────────────────────────────────────────────
-
 enum Signal {
     Break, Continue, Next,
     Exit(AWKValue),
     Return(AWKValue),
 }
-
-// ─── Interpreter ─────────────────────────────────────────────────────────────
 
 struct AWKInterpreter {
     globals: HashMap<String, AWKValue>,
@@ -1354,7 +1338,7 @@ impl AWKInterpreter {
         }
 
         // Evaluate args eagerly for most builtins
-        let eval_args = |interp: &mut AWKInterpreter| -> Result<Vec<AWKValue>, AWKError> {
+        let mut eval_args = |interp: &mut AWKInterpreter| -> Result<Vec<AWKValue>, AWKError> {
             arg_exprs.iter().map(|e| interp.eval_expr(e, locals, prog)).collect()
         };
 
@@ -1458,7 +1442,7 @@ impl AWKInterpreter {
         }
     }
 
-    fn write_output(&self, text: &str, redirect: Option<&Redirect>, locals: &mut HashMap<String, AWKValue>, prog: &Program) {
+    fn write_output(&self, text: &str, redirect: Option<&Redirect>, _locals: &mut HashMap<String, AWKValue>, _prog: &Program) {
         match redirect {
             None => { print!("{}", text); let _ = io::stdout().flush(); }
             Some(Redirect::File(path_expr)) => {
@@ -1502,8 +1486,6 @@ impl AWKInterpreter {
         }
     }
 }
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 fn apply_op(op: &str, a: &AWKValue, b: &AWKValue) -> AWKValue {
     let (x, y) = (a.to_num(), b.to_num());
@@ -1623,8 +1605,6 @@ fn rand_f64() -> f64 {
     }
 }
 
-// ─── sprintf ────────────────────────────────────────────────────────────────
-
 fn sprintf_format(fmt: &str, args: &[AWKValue]) -> String {
     let chars: Vec<char> = fmt.chars().collect();
     let mut result = String::new();
@@ -1719,8 +1699,6 @@ fn sprintf_format(fmt: &str, args: &[AWKValue]) -> String {
     }
     result
 }
-
-// ─── Help / version ──────────────────────────────────────────────────────────
 
 fn awk_print_usage() {
     println!("Usage: awk [OPTION]... 'program' [FILE]...");
