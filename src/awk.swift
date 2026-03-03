@@ -1359,7 +1359,9 @@ class AWKInterpreter {
             return .uninitialized
         }
         // Built-ins
-        let evalArgs: () throws -> [AWKValue] = { try argExprs.map { try self.evalExpr($0, locals: &locals) } }
+        func evalArgs() throws -> [AWKValue] {
+            try argExprs.map { try self.evalExpr($0, locals: &locals) }
+        }
         switch name {
         case "length":
             if argExprs.isEmpty { return .number(Double(record.count)) }
