@@ -13,7 +13,7 @@ if not exist "%SRC_DIR%" (
 )
 
 REM Compile Swift source files
-swiftc "%SRC_DIR%\main.swift" "%SRC_DIR%\ls.swift" "%SRC_DIR%\cat.swift" "%SRC_DIR%\color.swift" "%SRC_DIR%\cd.swift" "%SRC_DIR%\sleep.swift" "%SRC_DIR%\cp.swift" "%SRC_DIR%\mkdir.swift" "%SRC_DIR%\rm.swift" "%SRC_DIR%\time.swift" -o "%EXECUTABLE%"
+swiftc "%SRC_DIR%\main.swift" "%SRC_DIR%\ls.swift" "%SRC_DIR%\cat.swift" "%SRC_DIR%\color.swift" "%SRC_DIR%\cd.swift" "%SRC_DIR%\sleep.swift" "%SRC_DIR%\cp.swift" "%SRC_DIR%\mkdir.swift" "%SRC_DIR%\rm.swift" "%SRC_DIR%\time.swift" "%SRC_DIR%\echo.swift" "%SRC_DIR%\awk.swift" -o "%EXECUTABLE%"
 
 REM Check if compilation was successful
 if %errorlevel% equ 0 (
